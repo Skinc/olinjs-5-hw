@@ -36,8 +36,30 @@ app.configure('development', function(){
 });
 
 app.get('/users', user.list);
-app.get('/', Facebook.loginRequired(), mainPage.makePage);
-app.get('/logout', mainPage.getUser(), mainPage.makePage);
+app.get('/', facebookGetUser(), mainPage.makePage);
+
+app.get('/login', Facebook.loginRequired(), function(req, res){
+  res.redirect('/');
+});
+
+app.get('/logout', facebookGetUser(), function(req, res){
+  req.user = null;
+  req.session.destroy();
+  res.redirect('/');
+});
+
+function facebookGetUser() {
+  return function(req, res, next) {
+    req.facebook.getUser( function(err, user) {
+      if (!user || err){
+        res.send("you need to login");
+      } else {
+        req.user = user;
+        next();
+      }
+    });
+  }
+}
 
 //   function(req, res){
 //     res.send("hello there", req.user);

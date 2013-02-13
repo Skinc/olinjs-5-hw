@@ -10,6 +10,7 @@ exports.makePage = function(req, res) {
     var Bio;
     var Quote;
     var Picture;
+    var ID;
 
     
     req.facebook.api('/me', function(err, user) {
@@ -20,12 +21,20 @@ exports.makePage = function(req, res) {
         Gender = user.gender;
         Bio = user.bio;
         Quote = user.quotes;
-       
+        ID = user.id;
         req.facebook.api('/me/picture?redirect=false&type=large', function(err, data) {
             Picture = data.data.url
             res.render("mainpage", {title: "MyPlace", user: Name, picture: Picture, hometown: Hometown, gender: Gender, bio: Bio, quote: Quote})
-            var newuser = new User({id: 7, name: Name, hometown: Hometown, gender: Gender, bio: Bio, quote: Quote });
-            newuser.save(function(){}); 
+            
+            User.find({id: ID}).exec(function(err, addeduser){
+                if (addeduser == undefined){
+                    console.log("here")
+                    var newuser = new User({id: ID, name: Name, hometown: Hometown, gender: Gender, bio: Bio, quote: Quote });
+                    newuser.save(function(){}); 
+                }         
+                
+            });
+            
 
         });
     });
