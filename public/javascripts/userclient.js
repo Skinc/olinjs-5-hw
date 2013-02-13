@@ -5,4 +5,15 @@ $(function(){
         $.post("/newcolor", {"input":"#"+$("#input")[0].value})    
         $("#input")[0].value = ""
     })
+
+
+    $("#login").click( function (evt) {
+        window.location.href = "/login";
+    })
+
+
+    $("#logout").click( function (evt) {
+        window.location.href = "/logout";
+    })
+
 })

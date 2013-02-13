@@ -55,7 +55,7 @@ function facebookGetUser() {
   return function(req, res, next) {
     req.facebook.getUser( function(err, user) {
       if (!user || err){
-        res.send("you need to login");
+        res.render("login", {title:"MyPlace Login", color:"2DA2AD"});
       } else {
         req.user = user;
         next();

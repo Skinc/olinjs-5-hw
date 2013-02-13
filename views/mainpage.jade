@@ -2,6 +2,7 @@ extends layout
 
 block content
     h1 Welcome #{user}
+    input(type="submit", id="logout", value="logout", style="position: absolute;top: 80px;right: 200px;width: 80px;height: 40px")
     img(src=picture)
     h2(style="position: absolute;top: 110px;left: 300px") You are a #{gender} from #{hometown}
     h2(style="position: absolute;left: 300px;top:150px") #{bio}
