@@ -42,6 +42,9 @@ app.get('/login', Facebook.loginRequired(), function(req, res){
   res.redirect('/');
 });
 
+app.post("/newcolor", mainPage.addColor)
+
+
 app.get('/logout', facebookGetUser(), function(req, res){
   req.user = null;
   req.session.destroy();

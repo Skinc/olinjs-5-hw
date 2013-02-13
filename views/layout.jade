@@ -2,9 +2,11 @@ doctype 5
 html
   head
     title= title
+    script(src='http://code.jquery.com/jquery.js')
     link(rel='stylesheet', href='/stylesheets/style.css')
-  body
-    frame
-        h1(id="titletext") Myplace
-        //- img(src="mainpic.jpg")
+    //- <link rel="stylesheet" media="screen" type="text/css" href="../css/colorpicker.css" />
+    //- <script type="text/javascript" src="../js/colorpicker.js"></script>
+    script(src='/javascripts/userclient.js')  
+
+  body(id="body", style="background-color:#{color}")
     block content

@@ -15,7 +15,6 @@ exports.makePage = function(req, res) {
     
     req.facebook.api('/me', function(err, user) {
         
-        console.log("user", user)
         Name = user.name; 
         Hometown = user.hometown.name;
         Gender = user.gender;
@@ -24,15 +23,20 @@ exports.makePage = function(req, res) {
         ID = user.id;
         req.facebook.api('/me/picture?redirect=false&type=large', function(err, data) {
             Picture = data.data.url
-            res.render("mainpage", {title: "MyPlace", user: Name, picture: Picture, hometown: Hometown, gender: Gender, bio: Bio, quote: Quote})
-            
+            console.log("HERE")
             User.find({id: ID}).exec(function(err, addeduser){
-                if (addeduser == undefined){
+                console.log(addeduser)
+                if (addeduser.length == 0){
                     console.log("here")
-                    var newuser = new User({id: ID, name: Name, hometown: Hometown, gender: Gender, bio: Bio, quote: Quote });
-                    newuser.save(function(){}); 
+                    var newuser = new User({id: ID, name: Name, hometown: Hometown, gender: Gender, bio: Bio, quote: Quote, color: "#FFFFFF" });
+                    newuser.save(function(){});
+                    res.render("mainpage", {title: "MyPlace", user: Name, picture: Picture, hometown: Hometown, gender: Gender, bio: Bio, quote: Quote, color: "#FFFFFF"})
+                }
+                else{
+                    res.render("mainpage", {title: "MyPlace", user: Name, picture: Picture, hometown: Hometown, gender: Gender, bio: Bio, quote: Quote, color: addeduser[0].color })
+
                 }         
-                
+                    
             });
             
 
@@ -42,16 +46,12 @@ exports.makePage = function(req, res) {
 }
 
 
-exports.getUser = function facebookGetUser() {
-  return function(req, res, next) {
-    req.facebook.getUser( function(err, user) {
-        console.log("user",user)
-      if (!user || err){
-        res.send("you need to login");
-      } else {
-        req.user = user;
-        next();
-      }
-    });
-  }
+exports.addColor = function (req, res){
+    console.log(req.body.input)
+    console.log(req.session.user_id)
+        User.find({id: req.session.user_id}).exec(function(err, olduser){
+            olduser[0].color = req.body.input
+            olduser[0].save() 
+        })
+
 }

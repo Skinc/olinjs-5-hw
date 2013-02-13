@@ -3,5 +3,13 @@ extends layout
 block content
     h1 Welcome #{user}
     img(src=picture)
-    h2 You are a #{gender} from #{hometown}
-    h2 #{bio}
+    h2(style="position: absolute;top: 110px;left: 300px") You are a #{gender} from #{hometown}
+    h2(style="position: absolute;left: 300px;top:150px") #{bio}
+    div
+        <div style="font-family:Arial,Helvetica,sans-serif;border:solid 1px #cccccc;position:absolute;width:240px;height:326px;background: #ffffff;-moz-box-shadow:0 0 6px rgba(0,0,0,.25);-webkit-box-shadow: 0 0 6px rgba(0,0,0,.25);box-shadow:0 0 6px rgba(0,0,0,.25);-moz-border-radius: 5px;-webkit-border-radius:5px;border-radius:5px;">
+        <div style="background-color:#2d6ab4;position:absolute;top:0px;left:0px; width:100%; height:22px;text-align:center;padding-top:2px;font-weight:bold;border-top-right-radius:5px;border-top-left-radius:5px;"><a style="text-decoration:none;color:#ffffff;" target="_blank" href="http://www.colorcodehex.com/">HTML Color Picker</a></div>
+        <script id="cp" src="http://widget.colorcodehex.com/color-picker/abcdef.html" type="text/javascript"></script></div>
+    div(style="position:absolute;left:310px", id="setcolor")
+        h3 Enter the HEX value for the background color you'd like!
+        input(type="text", id="input")
+        input(type="submit", id="submit")
