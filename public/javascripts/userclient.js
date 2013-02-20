@@ -16,4 +16,13 @@ $(function(){
         window.location.href = "/logout";
     })
 
+   $('.commentForm').submit(function(){
+        var userid = $(this).attr("id")
+        var comment = $("#"+userid+"1").val()
+        var url = $(this).attr("value")
+        $("#"+userid+"1")[0].value = ""
+        $.post("/newcomment", {"id":userid, "url":url, "comment":comment})
+        return false
+        
+   })   
 })

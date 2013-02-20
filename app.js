@@ -26,7 +26,7 @@ app.configure(function(){
   app.use(express.methodOverride());
   app.use(express.cookieParser('your secret here'));
   app.use(express.session());
-  app.use(Facebook.middleware({ appId: '568319109846087', secret: '8aabf1648bffecac2c812e8658a83d46'}));
+  app.use(Facebook.middleware({ appId: '552433498108752', secret: 'c166904fd442482a15b8747ee8d12d2b'}));
   app.use(app.router);
   app.use(express.static(path.join(__dirname, 'public')));
 });
@@ -38,12 +38,10 @@ app.configure('development', function(){
 app.get('/users', user.list);
 app.get('/', facebookGetUser(), mainPage.makePage);
 
-app.get('/login', Facebook.loginRequired(), function(req, res){
-  res.redirect('/');
-});
+app.get('/login', Facebook.loginRequired({scope: ['user_photos', 'friends_photos', 'publish_stream', 'read_stream']  }), function(req, res){  res.redirect('/')});
 
 app.post("/newcolor", mainPage.addColor)
-
+app.post("/newcomment", mainPage.addComment)
 
 app.get('/logout', facebookGetUser(), function(req, res){
   req.user = null;

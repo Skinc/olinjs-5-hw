@@ -7,6 +7,15 @@ html
     //- <link rel="stylesheet" media="screen" type="text/css" href="../css/colorpicker.css" />
     //- <script type="text/javascript" src="../js/colorpicker.js"></script>
     script(src='/javascripts/userclient.js')  
+    script(type="text/javascript", src="/javascripts/widget/lib/jquery-1.7.1.min.js")
+    script(type='text/javascript', src='/javascripts/widget/lib/jquery.ui.core.min.js')
+    script(type='text/javascript', src='/javascripts/widget/lib/jquery.ui.widget.min.js')
+    script(type='text/javascript', src='/javascripts/widget/lib/jquery.ui.rcarousel.min.js')
+    link(type='text/css', rel='stylesheet', href='/javascripts/widget/css/rcarousel.css')
+    script(type='text/javascript')
+    script(src='/javascripts/carouselx.js')  
+
+
 
   body(id="body", style="background-color:#{color}")
     block content
